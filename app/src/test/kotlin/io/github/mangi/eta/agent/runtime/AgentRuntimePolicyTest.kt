@@ -23,6 +23,7 @@ class AgentRuntimePolicyTest {
                 browserTools = false,
                 thinking = false,
                 autoCompaction = false,
+                timeInjection = false,
             ),
             AgentRuntimePolicy.permissions(null),
         )
@@ -40,6 +41,7 @@ class AgentRuntimePolicyTest {
                 deviceSensitiveReadTools = true,
                 deviceSensitiveActionTools = true,
                 thinking = true,
+                timeInjection = true,
             ),
             AgentRuntimePolicy.permissions(preferences),
         )
@@ -55,9 +57,24 @@ class AgentRuntimePolicyTest {
                 browserTools = false,
                 thinking = false,
                 autoCompaction = false,
+                timeInjection = false,
             ),
             AgentRuntimePolicy.permissions(preferences),
         )
+    }
+
+    @Test
+    fun timeInjectionRequiresBothLocalSettingAndRequestSelection() {
+        for (localEnabled in listOf(false, true)) {
+            val preferences = booleanPreferences { key, default ->
+                if (key == Prefs.Keys.AGENT_TIME_INJECTION) localEnabled else default
+            }
+            val permissions = AgentRuntimePolicy.permissions(preferences)
+            for (requested in listOf(false, true)) {
+                val config = modelConfig(false, false, false).copy(timeInjection = requested)
+                assertEquals(localEnabled && requested, AgentRuntimePolicy.constrain(config, permissions).timeInjection)
+            }
+        }
     }
 
     @Test

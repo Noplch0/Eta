@@ -1215,6 +1215,8 @@
   <string name="context_compaction">Context compaction</string>
   <string name="context_compact_action">Compact context</string>
   <string name="settings_auto_compaction">Automatic context compaction</string>
+  <string name="ui_time_injection_b7e4a9">Time injection</string>
+  <string name="ui_time_injection_desc_b7e4a9">Inject the device\'s current date and time into each model request; your messages are not modified</string>
   <string name="voice_audio_permission">请在 Eta 应用权限中允许麦克风，然后重新唤醒；点击麦克风可打开设置</string>
   <string name="voice_no_speech">没有听清，请点击麦克风重试，或改用键盘输入</string>
   <string name="voice_use_keyboard">切换键盘输入</string>

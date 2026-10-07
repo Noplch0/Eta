@@ -19,6 +19,7 @@ internal object AgentRuntimePolicy {
         val deviceSensitiveActionTools: Boolean = false,
         val thinking: Boolean,
         val autoCompaction: Boolean = Prefs.Keys.BOOLEAN_DEFAULTS.getValue(Prefs.Keys.AGENT_AUTO_COMPACTION_ENABLED),
+        val timeInjection: Boolean = Prefs.Keys.BOOLEAN_DEFAULTS.getValue(Prefs.Keys.AGENT_TIME_INJECTION),
     )
 
     fun permissions(preferences: SharedPreferences?): Permissions =
@@ -32,6 +33,7 @@ internal object AgentRuntimePolicy {
                 preferences.allowed(Prefs.Keys.AGENT_DEVICE_SENSITIVE_ACTION_TOOLS),
             thinking = preferences.allowed(Prefs.Keys.AGENT_THINKING_ENABLED),
             autoCompaction = preferences.allowed(Prefs.Keys.AGENT_AUTO_COMPACTION_ENABLED),
+            timeInjection = preferences.allowed(Prefs.Keys.AGENT_TIME_INJECTION),
         )
 
     fun constrain(
@@ -52,6 +54,7 @@ internal object AgentRuntimePolicy {
             thinkingEnabled = thinkingEnabled,
             reasoningEffort = effectiveEffort,
             autoCompactionEnabled = config.autoCompactionEnabled && permissions.autoCompaction,
+            timeInjection = config.timeInjection && permissions.timeInjection,
         )
         if (thinkingEnabled) return constrained
         return constrained.copy(

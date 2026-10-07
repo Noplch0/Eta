@@ -31,6 +31,7 @@ import androidx.compose.material.icons.rounded.Palette
 import androidx.compose.material.icons.rounded.PowerSettingsNew
 import androidx.compose.material.icons.rounded.Psychology
 import androidx.compose.material.icons.rounded.Security
+import androidx.compose.material.icons.rounded.Schedule
 import androidx.compose.material.icons.rounded.Settings
 import androidx.compose.material.icons.rounded.SettingsVoice
 import androidx.compose.material.icons.rounded.Smartphone
@@ -289,6 +290,17 @@ private fun SettingsPageContent(
                         title = stringResource(R.string.settings_auto_compaction),
                         key = Prefs.Keys.AGENT_AUTO_COMPACTION_ENABLED,
                         icon = Icons.Rounded.Layers,
+                        iconTint = EtaPreferenceColors.Blue,
+                    )
+
+                    EtaPreferenceDivider()
+                    SwitchPref(
+                        context = context,
+                        prefs = agentPrefs,
+                        title = stringResource(R.string.ui_time_injection_b7e4a9),
+                        summary = stringResource(R.string.ui_time_injection_desc_b7e4a9),
+                        key = Prefs.Keys.AGENT_TIME_INJECTION,
+                        icon = Icons.Rounded.Schedule,
                         iconTint = EtaPreferenceColors.Blue,
                     )
 

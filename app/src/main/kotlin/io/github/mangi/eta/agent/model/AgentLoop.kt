@@ -100,9 +100,17 @@ internal class AgentLoop(
             toolCallValidator = AgentToolCallValidator(roundTools)
             publishTranscript()
             if (purpose.allowsTools) context.compact()
-            val requestMessages = AssistantScreenContextProjection.project(
-                roleplayContext?.projectMessages(messages) ?: messages,
-            )
+            val requestMessages = if (config.timeInjection) {
+                AgentTimeContextProjection.project(
+                    AssistantScreenContextProjection.project(
+                        roleplayContext?.projectMessages(messages) ?: messages,
+                    ),
+                )
+            } else {
+                AssistantScreenContextProjection.project(
+                    roleplayContext?.projectMessages(messages) ?: messages,
+                )
+            }
             var roundInputTokens: Int? = null
             val reasoningLengthBeforeRound = accumulatedReasoning.length
             val completedRound = try {

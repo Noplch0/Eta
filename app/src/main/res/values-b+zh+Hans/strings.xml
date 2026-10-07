@@ -1105,6 +1105,8 @@
   <string name="context_compaction">上下文压缩</string>
   <string name="context_compact_action">压缩上下文</string>
   <string name="settings_auto_compaction">自动压缩上下文</string>
+  <string name="ui_time_injection_b7e4a9">时间注入</string>
+  <string name="ui_time_injection_desc_b7e4a9">每次请求向模型注入设备当前日期与时间，不修改用户消息</string>
   <string name="context_usage_description">上下文用量：%1$s</string>
   <string name="memory_budget_summary">每轮最多注入 %1$s 字符，详细内容由模型按需读取</string>
   <string name="memory_over_limit">已超过 1 MiB 上限，请删减</string>
