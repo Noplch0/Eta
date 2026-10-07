@@ -123,8 +123,10 @@ internal fun ToolActivityRow(
         }
     }
     val subtitle = browserLine ?: outcome
+    // 结果只有一行且已作为结论显示时，展开不会带来新信息，不提供展开入口。
+    val resultDetail = message.resultSummary?.trim()?.takeIf { it.isNotEmpty() && it != outcome }
     val hasDetail = !message.command.isNullOrBlank() ||
-        !message.resultSummary.isNullOrBlank() ||
+        resultDetail != null ||
         showBrowserShortcut
     val elapsedSeconds = rememberRunningSeconds(message.id, running)
 

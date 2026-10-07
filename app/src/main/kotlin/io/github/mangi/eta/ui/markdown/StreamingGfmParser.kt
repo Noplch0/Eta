@@ -21,7 +21,10 @@ internal class StreamingGfmParserSession {
         isComplete: Boolean,
         style: MarkdownInlineStyle = MarkdownInlineStyle.Default,
     ): StreamingGfmSnapshot {
-        val renderedSource = StreamingGfmProjection.project(source = source, isComplete = isComplete)
+        val renderedSource = StreamingGfmProjection.project(
+            source = TexMathDelimiters.normalize(source),
+            isComplete = isComplete,
+        )
         val root = parser.buildMarkdownTreeFromString(renderedSource)
         // 引用式链接的定义可能出现在文末，只在终态整体解析一次；流式期间引用暂按原文显示。
         val links = if (isComplete) LinkMap.buildLinkMap(root, renderedSource) else null

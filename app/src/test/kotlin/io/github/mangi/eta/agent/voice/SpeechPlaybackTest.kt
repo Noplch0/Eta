@@ -86,7 +86,12 @@ class SpeechPlaybackTest {
     @Test fun ownerCancellationClosesAudioWithoutExplicitStop() {
         start("answer")
         scope.cancel()
-        shadowOf(Looper.getMainLooper()).idle()
+        // 播放端在 IO 线程，取消后需等它退出再回到主线程收尾。
+        val deadline = System.nanoTime() + 3_000_000_000
+        while (!outputs.single().closed && System.nanoTime() < deadline) {
+            shadowOf(Looper.getMainLooper()).idle()
+            Thread.sleep(1)
+        }
         assertTrue(outputs.single().closed)
         assertNull(playback.state.value.messageId)
     }
@@ -116,6 +121,44 @@ class SpeechPlaybackTest {
             assertTrue(output.closed)
             assertNull(controller.state.value.error)
         } finally { controller.stop() }
+    }
+
+    @Test fun synthesisIsNotPacedByPlaybackAndPrefetchesBoundedChunks() {
+        val writing = java.util.concurrent.CountDownLatch(1)
+        val release = java.util.concurrent.CountDownLatch(1)
+        val synthesized = java.util.concurrent.atomic.AtomicInteger()
+        val output = object : SpeechAudioOutput {
+            @Volatile var finished = false
+            @Volatile var closed = false
+            override fun write(bytes: ByteArray) { writing.countDown(); release.await() }
+            override fun finish() { finished = true }
+            override fun drained() = true
+            override fun close() { closed = true }
+        }
+        val controller = SpeechPlaybackController(context, scope,
+            synthesize = { _, _, _, audio -> synthesized.incrementAndGet(); audio(byteArrayOf(1, 2)) },
+            createOutput = { output },
+        )
+        try {
+            val text = "很长的回答。".repeat(250)
+            val chunkCount = SpeechText.chunks(SpeechText.readable(text)).size
+            assertTrue(chunkCount > 2)
+            controller.speak("long", text, SpeechSettings(tts = TtsProvider.QWEN), SpeechCredentials(qwenTts = "test-key"))
+            fun idleUntil(condition: () -> Boolean) {
+                val deadline = System.nanoTime() + 3_000_000_000
+                while (!condition() && System.nanoTime() < deadline) {
+                    shadowOf(Looper.getMainLooper()).idle()
+                    Thread.sleep(1)
+                }
+            }
+            idleUntil { writing.count == 0L && synthesized.get() >= 2 }
+            assertEquals(2, synthesized.get())
+            release.countDown()
+            idleUntil { output.closed }
+            assertEquals(chunkCount, synthesized.get())
+            assertTrue(output.finished)
+            assertNull(controller.state.value.error)
+        } finally { release.countDown(); controller.stop() }
     }
 
     private class FakeOutput : SpeechAudioOutput {

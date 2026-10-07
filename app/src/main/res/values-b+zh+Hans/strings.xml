@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
+  <string name="permission_local_network_title">局域网访问</string>
+  <string name="permission_local_network_summary">用于模型、MCP、内置浏览器和终端访问局域网，请按需授权；不授权仍可访问公网。</string>
+  <string name="permission_local_network_denied">尚未授予局域网访问权限。需要连接本地服务时，可前往系统应用权限设置，允许“附近的设备”；公网连接不受影响。</string>
+  <string name="permission_local_network_settings_unavailable">无法打开设置，请在系统设置中找到 Eta 的应用权限，允许“附近的设备”。</string>
   <string name="settings_language">语言</string>
   <string name="settings_language_system">跟随系统</string>
   <string name="app_name">Eta</string>
@@ -335,7 +339,7 @@
   <string name="ui_enable_vendor_assistant_custom_models_c8e465">启用厂商助手自定义模型</string>
   <string name="ui_enable_this_provider_683a76">启用此 Provider</string>
   <string name="ui_enable_terminal_file_tools_18bb43">启用终端/文件工具</string>
-  <string name="ui_enable_web_browsing_tools_8b6b03">启用网页浏览工具</string>
+  <string name="ui_enable_web_browsing_tools_8b6b03">启用网页搜索、读取与浏览器</string>
   <string name="ui_enable_memory_4b69b7">启用记忆</string>
   <string name="ui_enable_device_direct_tools_e2d595">启用设备直达工具</string>
   <string name="ui_back_to_bottom_32282e">回到底部</string>
@@ -502,7 +506,9 @@
   <string name="state_hook_secondary_ability_95afe3">Hook 二级能力</string>
   <string name="state_root_permissions_958906">Root 权限</string>
   <string name="state_runtime_displays_a_status_pop_up_window_when_the_ser_54f285">Runtime 服务运行时显示状态浮窗</string>
-  <string name="state_direct_access_to_personal_data_387d7b">个人数据直达</string>
+  <string name="state_direct_access_to_personal_data_387d7b">个人上下文</string>
+  <string name="tool_personal_context">个人上下文</string>
+  <string name="tool_personal_context_description">按内容与时间检索照片、便签、记忆、账单和行程索引，读取详情并统计汇总。</string>
   <string name="state_location_permissions_b53f9c">位置权限</string>
   <string name="state_usage_access_20f1f8">使用情况访问</string>
   <string name="state_the_built_in_skills_have_not_changed_please_try_agai_34e5e3">内置 Skills 未发生变化，请稍后重试。</string>
@@ -536,10 +542,10 @@
   <string name="state_used_to_read_recently_opened_applications_and_foregr_73e796">用于读取最近打开的应用和前台使用时长</string>
   <string name="state_system_enhancement_capabilities_are_reserved_for_sub_0a8b21">系统增强能力保留为后续二级功能</string>
   <string name="state_terminal_and_files_ae7c54">终端与文件</string>
-  <string name="state_web_browsing_e56105">网页浏览</string>
+  <string name="state_web_browsing_e56105">网页工具</string>
   <string name="state_memory_b55ff5">记忆</string>
   <string name="state_memory_system_4903eb">记忆系统</string>
-  <string name="state_direct_access_to_equipment_eda92c">设备直达</string>
+  <string name="state_direct_access_to_equipment_eda92c">系统与一方应用操作</string>
   <string name="state_please_select_the_zip_file_provided_by_the_system_fi_fea145">请选择由系统文件选择器提供的 ZIP 文件。</string>
   <string name="state_run_floating_window_48af02">运行浮窗</string>
   <string name="state_notice_of_use_rights_1ae29a">通知使用权</string>
@@ -594,7 +600,7 @@
   <string name="page_exceeded_the_1_mib_limit_please_delete_120a63">已超过 1 MiB 上限，请删减</string>
   <string name="page_the_installation_of_common_tools_has_not_been_comple_d7f7c2">常用工具安装尚未完成，可以从当前进度继续</string>
   <string name="page_the_current_root_environment_cannot_create_an_isolat_4ca00a">当前 Root 环境无法创建隔离 mount namespace 或 chroot</string>
-  <string name="page_current_model_a0af8f">当前模型</string>
+  <string name="page_current_model_a0af8f">默认模型</string>
   <string name="page_busy_0212cc">忙碌</string>
   <string name="page_retrieving_a880c9">拉取中...</string>
   <string name="page_support_thinking_5b9e4c">支持思考</string>
@@ -620,7 +626,7 @@
   <string name="page_continue_installation_62da0c">继续安装</string>
   <string name="page_edit_model_29e31e">编辑模型</string>
   <string name="page_custom_model_25be0f">自定义模型</string>
-  <string name="page_set_as_current_model_183d7d">设为当前模型</string>
+  <string name="page_set_as_current_model_183d7d">设为默认模型</string>
   <string name="page_please_complete_the_linux_basic_tool_installation_fi_2ab81b">请先完成 Linux 基础工具安装</string>
   <string name="page_the_remote_end_did_not_return_a_usable_conversation__781487">远端未返回可用对话模型，已保留现有模型</string>
   <string name="page_select_zip_skills_package_982a44">选择 ZIP Skill 包</string>
@@ -1070,7 +1076,7 @@
     <item quantity="other">%d 个模型</item>
   </plurals>
   <string name="provider_selected">已选中</string>
-  <string name="provider_set_current">设为当前</string>
+  <string name="provider_set_current">设为默认</string>
   <string name="skills_checking_package">正在检查 Skill 包</string>
   <string name="skills_import_zip">从 ZIP 导入</string>
   <string name="skills_installing_package">正在验证并安装，请稍候</string>
@@ -1095,11 +1101,12 @@
   <string name="browser_opening">正在打开网页</string>
   <string name="browser_opening_host">正在打开 %1$s</string>
   <string name="model_not_selected">未选择</string>
+  <string name="conversation_model_unavailable">此会话原用的模型不可用，已改用 %1$s</string>
   <string name="model_switch_current">切换模型，当前为 %1$s</string>
   <string name="model_collapse_provider">收起 %1$s</string>
   <string name="model_expand_provider">展开 %1$s</string>
   <string name="context_no_previous_usage">暂无上轮用量</string>
-  <string name="context_no_model_limit">请先到设置 → 模型提供商填写当前模型的上下文窗口大小。</string>
+  <string name="context_no_model_limit">未知上下文窗口，自动压缩已关闭。仍可手动压缩，也可在设置 → 模型提供商中填写窗口。</string>
   <string name="context_usage_after_response">完成首次回复后显示实测用量</string>
   <string name="context_usage_previous_response">%1$s\n上轮实测</string>
   <string name="context_compaction">上下文压缩</string>
@@ -1236,6 +1243,14 @@
   <string name="speech_qwen_base_url_hint">服务地址（留空使用地域默认地址）</string>
   <string name="speech_resource_id_hint">资源 ID（留空使用默认值）</string>
   <string name="speech_language_hint">识别语言（留空自动识别，如 zh、en、yue）</string>
+  <string name="speech_group_result">识别结果</string>
+  <string name="speech_auto_send_title">停顿后自动发送</string>
+  <string name="speech_auto_send_off">不自动发送</string>
+  <string name="speech_auto_send_seconds">%1$s 秒</string>
+  <string name="speech_auto_send_note">仅对助手浮窗生效；按住麦克风说话时，松手才发送。</string>
+  <string name="speech_refine_title">智能纠错</string>
+  <string name="speech_refine_summary">用当前对话模型修正同音字和中英文术语，会增加少量延迟和费用</string>
+  <string name="voice_release_to_send">松开发送，移出取消</string>
   <string name="speech_legacy_auth">使用旧版鉴权</string>
   <string name="speech_advanced">高级设置</string>
   <string name="speech_expand">展开</string>
@@ -1311,4 +1326,18 @@
   <string name="speech_credentials_lost">语音凭据无法解密，请重新填写并保存</string>
   <string name="speech_save_retry">请重试</string>
   <string name="system_notice_model_retry">模型请求重试</string>
+  <string name="tool_inspect_app">检查应用</string>
+  <string name="tool_inspect_app_description">查看指定应用的版本、UID、安装信息、启用状态与权限。</string>
+  <string name="tool_edit_file">精确编辑文件</string>
+  <string name="tool_edit_file_description">使用旧文本定位片段，检查匹配和版本后替换。</string>
+  <string name="tool_stat_file">查看文件信息</string>
+  <string name="tool_stat_file_description">查询 Android 或 Linux 文件的类型、大小和版本。</string>
+  <string name="tool_glob_files">按路径查找文件</string>
+  <string name="tool_glob_files_description">使用路径模式递归查找文件，支持有界续查。</string>
+  <string name="tool_grep_files">搜索文件内容</string>
+  <string name="tool_grep_files_description">搜索 UTF-8 文本，返回匹配路径、行号与采集范围。</string>
+  <string name="tool_web_search">搜索网页</string>
+  <string name="tool_web_search_description">未使用 Provider 托管搜索时检索公开网页，返回标题、链接与摘要，无需额外 API Key。</string>
+  <string name="tool_fetch_url">读取网页正文</string>
+  <string name="tool_fetch_url_description">读取静态网页正文并分页续读；不执行网页脚本或共享浏览器登录状态。</string>
 </resources>

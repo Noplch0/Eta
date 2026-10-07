@@ -14,7 +14,8 @@ class AgentToolRequirementsTest {
     @Test
     fun everyRegisteredToolHasExactlyOneRequirement() {
         val tools = catalog(root = true).also { CharacterMemoryTools.appendSchemas(it) }
-        assertEquals(AgentToolRequirements.toolNames, tools.names())
+        assertEquals(AgentToolRequirements.toolNames - setOf("run_command"), tools.names())
+        assertFalse("旧命令名仅保留执行兼容，不再向模型暴露", "run_command" in tools.names())
         assertEquals(tools.length(), tools.names().size)
         assertFalse(tools.toString().contains("rootRequirement"))
     }
@@ -85,6 +86,16 @@ class AgentToolRequirementsTest {
             .unavailableCode("search_coloros_memories"))
         assertEquals(null, AgentToolCapabilities(rootAvailable = true, lsposedAvailable = false)
             .unavailableCode("search_coloros_memories"))
+    }
+
+    @Test
+    fun indexedSearchNeedsRootAndColorOsButDoesNotRequireAnXposedConnection() {
+        assertEquals("ROOT_REQUIRED", AgentToolCapabilities(rootAvailable = false, colorOs = true)
+            .unavailableCode("search_bills"))
+        assertEquals("DEVICE_UNSUPPORTED", AgentToolCapabilities(rootAvailable = true, colorOs = false)
+            .unavailableCode("search_bills"))
+        assertEquals(null, AgentToolCapabilities(rootAvailable = true, colorOs = true, lsposedAvailable = false)
+            .unavailableCode("search_bills"))
     }
 
     private fun catalog(root: Boolean) = AgentToolCatalog.build(

@@ -728,7 +728,7 @@ private fun SettingsPageContent(
                             }
                         },
                     )
-                    if (prefs != null || hasConnectedFramework) {
+                    if (AccessibilityProtectionClient.isSupported() && (prefs != null || hasConnectedFramework)) {
                         EtaPreferenceDivider()
                         EtaSwitchPreference(
                             title = stringResource(R.string.ui_enforce_accessibility_55e838),

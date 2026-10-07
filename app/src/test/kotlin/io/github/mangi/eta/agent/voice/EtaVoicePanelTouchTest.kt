@@ -106,6 +106,7 @@ class EtaVoicePanelTouchTest {
                             input = "",
                             speech = EtaSpeechState(),
                             onMicrophone = {},
+                            onCancelSpeech = {},
                             onFinishSpeech = {},
                             onDownloadModel = {},
                             onOpenSpeechSettings = {},

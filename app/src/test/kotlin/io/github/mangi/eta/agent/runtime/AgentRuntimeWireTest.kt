@@ -25,7 +25,7 @@ import org.robolectric.RuntimeEnvironment
 import org.robolectric.annotation.Config
 
 @RunWith(RobolectricTestRunner::class)
-@Config(sdk = [36])
+@Config(sdk = [33, 36])
 class AgentRuntimeWireTest {
     @Test
     fun automaticCompactionSettingSurvivesIpcAndDefaultsForOldRequests() {
